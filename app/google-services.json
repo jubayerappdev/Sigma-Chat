@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622809343629",
+    "project_id": "sigma-chat-5b7c9",
+    "storage_bucket": "sigma-chat-5b7c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622809343629:android:8d04299d6fbda9c41c24c4",
+        "android_client_info": {
+          "package_name": "com.creativeitinstitute.sigmachat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO5NFkfDo9v1dB9w6qa2RDOxFjbU656w4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
