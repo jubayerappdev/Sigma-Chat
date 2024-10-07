@@ -10,12 +10,17 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.creativeitinstitute.sigmachat.R
 import com.creativeitinstitute.sigmachat.databinding.FragmentRegisterBinding
+import com.creativeitinstitute.sigmachat.nodes.DBNODES
+import com.creativeitinstitute.sigmachat.utils.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class RegisterFragment : Fragment() {
 
     lateinit var binding: FragmentRegisterBinding
+    lateinit var userDB:DatabaseReference
 
 
     override fun onCreateView(
@@ -25,6 +30,8 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+
+        userDB = FirebaseDatabase.getInstance().reference
 
         binding.loginBtn.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
@@ -58,10 +65,32 @@ class RegisterFragment : Fragment() {
         jAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task->
 
             if (task.isSuccessful){
-                Toast.makeText(context, "Registration Successful", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                saveUserToDataBase(jAuth.currentUser?.uid, email, name)
             }else{
                 Toast.makeText(context, "Registration Failed : ${task.exception?.message}", Toast.LENGTH_LONG).show()
+            }
+
+        }
+
+    }
+
+    private fun saveUserToDataBase(uid: String?, email: String, name: String) {
+
+        uid?.let {
+            val user = User(
+                userId = uid, email = email, fullName = name
+            )
+
+            userDB.child(DBNODES.USER).child(it).setValue(user).addOnCompleteListener { task->
+
+                if (task.isSuccessful){
+
+                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                }else{
+
+                    Toast.makeText(requireContext(), "${task.exception?.message}", Toast.LENGTH_LONG).show()
+                }
+
             }
 
         }
