@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.creativeitinstitute.sigmachat.ProfileFragment
 import com.creativeitinstitute.sigmachat.R
 import com.creativeitinstitute.sigmachat.databinding.FragmentHomeBinding
 import com.creativeitinstitute.sigmachat.nodes.DBNODES
 import com.creativeitinstitute.sigmachat.utils.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -27,6 +29,14 @@ class HomeFragment : Fragment() , UserAdapter.UserListener{
 
     val userList: MutableList<User> = mutableListOf()
 
+    private val jAuth = FirebaseAuth.getInstance()
+
+    private lateinit var firebaseUser: FirebaseUser
+
+    private var currentUser: User?=null
+
+    val bundle = Bundle()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,8 +45,19 @@ class HomeFragment : Fragment() , UserAdapter.UserListener{
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         userDB = FirebaseDatabase.getInstance().reference
 
+        FirebaseAuth.getInstance().currentUser?.let {
+
+            firebaseUser = it
+        }
+        binding.topBar.profileImage.setOnClickListener {
+            currentUser?.let {
+                bundle.putString(ProfileFragment.USERID, it.userId)
+                findNavController().navigate(R.id.action_homeFragment_to_profileFragment, bundle)
+            }
+        }
+
         binding.topBar.logoutBtn.setOnClickListener {
-            val jAuth = FirebaseAuth.getInstance()
+
 
             jAuth.signOut().apply {
                 findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
@@ -61,7 +82,15 @@ class HomeFragment : Fragment() , UserAdapter.UserListener{
                     snapshot.children.forEach {
 
                         val user:User = it.getValue(User::class.java)!!
-                        userList.add(user)
+
+                        if (firebaseUser.uid!=user.userId){
+                            userList.add(user)
+                        }else{
+                            currentUser=user
+                            setProfile()
+                        }
+
+
                     }
 
                     adapter.submitList(userList)
@@ -78,9 +107,15 @@ class HomeFragment : Fragment() , UserAdapter.UserListener{
 
     }
 
+    private fun setProfile() {
+        currentUser?.let {
+            binding.topBar.profileImage.load("https://pbs.twimg.com/media/F3tVQbJWUAEOXJB.jpg")
+        }
+    }
+
     override fun userItemClick(user: User) {
 
-        val bundle = Bundle()
+
         bundle.putString(ProfileFragment.USERID, user.userId)
 
         findNavController().navigate(R.id.action_homeFragment_to_profileFragment, bundle)
