@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/chat_back"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ChatFragment">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/topChatLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/backBtn"
+        android:src="@drawable/round_arrow_back_ios_24"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="56dp"
+        android:layout_height="56dp"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="@id/backBtn"
+        app:layout_constraintStart_toEndOf="@id/backBtn"
+        app:layout_constraintTop_toTopOf="@id/backBtn"
+        android:src="@drawable/imgq"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#F6F4F4"/>
+
+    <TextView
+        android:id="@+id/nameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        android:text="Jubayer Ahmed"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintTop_toTopOf="@id/profile_image" />
+    <TextView
+        android:id="@+id/emailTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/roboto"
+        android:includeFontPadding="false"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:text="jubayer@gmail.com"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/nameTV"
+        app:layout_constraintTop_toBottomOf="@id/nameTV" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainChatLayout"
+        android:background="@drawable/top_rounded_chat_back"
+        app:layout_constraintBottom_toTopOf="@id/bottomChatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topChatLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRcv"
+            tools:listitem="@layout/item_right_chat"
+            android:layout_margin="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#8BF4F2F2"
+        android:id="@+id/bottomChatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/inputMsg"
+            android:drawableStart="@drawable/ic_write_24"
+            android:textColorHint="#673AB7"
+            android:drawableTint="#673AB7"
+            android:layout_margin="4dp"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/roboto"
+            android:hint="type you massage"
+            app:layout_constraintEnd_toStartOf="@id/sendBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/sendBtn"
+            android:src="@drawable/round_send_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="#673AB7"
+            android:padding="8dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -87,7 +87,7 @@ class HomeFragment : Fragment() , UserAdapter.UserListener{
                             userList.add(user)
                         }else{
                             currentUser=user
-                            setProfile()
+                            user.profileImage?.let {it-> setProfile(it) }
                         }
 
 
@@ -107,9 +107,9 @@ class HomeFragment : Fragment() , UserAdapter.UserListener{
 
     }
 
-    private fun setProfile() {
+    private fun setProfile(imageLink:String) {
         currentUser?.let {
-            binding.topBar.profileImage.load("https://pbs.twimg.com/media/F3tVQbJWUAEOXJB.jpg")
+            binding.topBar.profileImage.load(imageLink)
         }
     }
 

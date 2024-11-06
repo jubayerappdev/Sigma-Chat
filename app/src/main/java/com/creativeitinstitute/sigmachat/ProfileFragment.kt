@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.creativeitinstitute.sigmachat.databinding.FragmentProfileBinding
 import com.creativeitinstitute.sigmachat.nodes.DBNODES
 import com.creativeitinstitute.sigmachat.utils.User
@@ -49,10 +50,13 @@ class ProfileFragment : Fragment() {
                 binding.chatWithUserBtn.text = CHAT
             }
             binding.chatWithUserBtn.setOnClickListener {
+                bundle.putString(EditProfileFragment.USERID,userId)
                 if (binding.chatWithUserBtn.text == EDIT){
 
-                    bundle.putString(EditProfileFragment.USERID,userId)
+
                     findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment, bundle)
+                }else{
+                    findNavController().navigate(R.id.action_profileFragment_to_chatFragment, bundle)
                 }
             }
         }
@@ -77,6 +81,8 @@ class ProfileFragment : Fragment() {
                         binding.userEmail.text = it.email
                         binding.bio.text = it.bio
                         binding.fullName.text = it.fullName
+
+                        binding.profileImage.load(it.profileImage)
                     }
 
 

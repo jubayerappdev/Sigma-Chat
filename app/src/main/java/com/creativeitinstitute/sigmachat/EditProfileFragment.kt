@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.creativeitinstitute.sigmachat.databinding.FragmentEditProfileBinding
 import com.creativeitinstitute.sigmachat.nodes.DBNODES
 import com.creativeitinstitute.sigmachat.utils.User
@@ -60,6 +61,9 @@ class EditProfileFragment : Fragment() {
             if (isProfileClicked && userProfileUri!=null){
 
                 uploadImage(userProfileUri)
+
+
+
             }else{
                 var userMap:MutableMap<String, Any> = mutableMapOf()
 
@@ -98,6 +102,8 @@ class EditProfileFragment : Fragment() {
 
                     profileUpdateWithImage(data.toString())
                     Toast.makeText(requireContext(), "Image Upload Successfully", Toast.LENGTH_LONG).show()
+
+
 
 
                 }
@@ -178,6 +184,7 @@ class EditProfileFragment : Fragment() {
                         binding.userEmail.text = it.email
                         binding.bio.setText(it.bio)
                         binding.fullName.setText(it.fullName)
+                        binding.profileImage.load(it.profileImage)
                     }
 
                 }

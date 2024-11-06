@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.creativeitinstitute.sigmachat"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.creativeitinstitute.sigmachat"
@@ -65,6 +65,7 @@ dependencies {
 
     implementation(libs.circleimageview)
     implementation(libs.coil)
+    implementation(libs.glide)
 
 
     implementation(libs.dexter)
