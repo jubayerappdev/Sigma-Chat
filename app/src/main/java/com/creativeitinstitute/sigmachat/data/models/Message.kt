@@ -8,15 +8,15 @@ interface Message {
 
 data class TextMessages(
     var text:String?=null,
-    override var senderID: String,
-    override var receiver: String,
-    override var msgID: String
+    override var senderID: String = "",
+    override var receiver: String = "",
+    override var msgID: String = ""
 ):Message
 
 
 data class ImageMessage(
     var imageLink:String = "",
-    override var senderID: String,
-    override var receiver: String,
-    override var msgID: String
+    override var senderID: String = "",
+    override var receiver: String = "",
+    override var msgID: String = ""
 ):Message
